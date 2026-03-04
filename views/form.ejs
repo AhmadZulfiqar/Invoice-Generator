@@ -39,6 +39,15 @@
             padding: 24px;
         }
 
+        /* NEW Style for Product Titles */
+        .product-title {
+            font-size: 11px;
+            font-weight: 600;
+            color: #64748b;
+            margin-bottom: 6px;
+            display: block;
+        }
+
         /* Layout Grid */
         .grid-header {
             display: grid;
@@ -67,7 +76,7 @@
             display: grid;
             grid-template-columns: 8fr 3fr;
             gap: 16px;
-            align-items: center;
+            align-items: end; /* Changed from center to end to align with labels */
             padding: 8px;
             border-radius: 8px;
             transition: background 0.2s;
@@ -99,19 +108,9 @@
             font-weight: 600;
         }
 
-        .mobile-label {
-            display: none;
-            font-size: 10px;
-            font-weight: 700;
-            color: #94a3b8;
-            text-transform: uppercase;
-            margin-bottom: 4px;
-        }
-
-        /* Footer Actions */
         .actions {
             display: flex;
-            justify-content: flex-end; /* Align save button to the right */
+            justify-content: flex-end; 
             margin-top: 32px;
         }
 
@@ -136,7 +135,6 @@
             transform: scale(0.95);
         }
 
-        /* Responsive Design */
         @media (max-width: 600px) {
             .grid-header {
                 display: none;
@@ -149,12 +147,8 @@
                 padding: 16px;
             }
 
-            .mobile-label {
-                display: block;
-            }
-
             .btn-save {
-                width: 100%; /* Full width button on mobile */
+                width: 100%; 
             }
         }
     </style>
@@ -168,63 +162,63 @@
 
         <form id="invoiceForm" method="post" action="/add">
             <div class="grid-header">
-                <div class="label-text">Item Description</div>
+                <div class="label-text">Product Selection</div>
                 <div class="label-text" style="text-align: center;">Quantity</div>
             </div>
 
             <div class="item-list">
                 <div class="product-row">
                     <div>
-                        <div class="mobile-label">Item Description</div>
+                        <label class="product-title">Difam Plus Inj</label>
                         <select name="difam">
                             <option>------------Select--------------</option>
                             <option value="683/Difam Plus Inj 5x2ml">683/Difam Plus Inj 5x2ml</option>
                         </select>
                     </div>
                     <div>
-                        <div class="mobile-label">Quantity</div>
+                        <label class="product-title" style="text-align: center; display: block;">Qty</label>
                         <input type="number" name="difam_qty" value="0">
                     </div>
                 </div>
 
                 <div class="product-row">
                     <div>
-                        <div class="mobile-label">Item Description</div>
+                        <label class="product-title">Taxomic 250mg</label>
                         <select name="taxo250">
                             <option>------------Select--------------</option>
                             <option value="592/Taxomic 250mg IM/IV Inj">592/Taxomic 250mg IM/IV Inj</option>
                         </select>
                     </div>
                     <div>
-                        <div class="mobile-label">Quantity</div>
+                        <label class="product-title" style="text-align: center; display: block;">Qty</label>
                         <input type="number" name="taxo250_qty" value="0">
                     </div>
                 </div>
 
                 <div class="product-row">
                     <div>
-                        <div class="mobile-label">Item Description</div>
+                        <label class="product-title">Taxomic 500mg</label>
                         <select name="tax500">
                             <option>------------Select--------------</option>
                             <option value="593/Taxomic 500mg IM/IV Inj">593/Taxomic 500mg IM/IV Inj</option>
                         </select>
                     </div>
                     <div>
-                        <div class="mobile-label">Quantity</div>
+                        <label class="product-title" style="text-align: center; display: block;">Qty</label>
                         <input type="number" name="taxo500_qty" value="0">
                     </div>
                 </div>
 
                 <div class="product-row">
                     <div>
-                        <div class="mobile-label">Item Description</div>
+                        <label class="product-title">Cefresh 500mg</label>
                         <select name="cerf">
                             <option>------------Select--------------</option>
                             <option value="586/Cefresh 500mg inj">586/Cefresh 500mg inj</option>
                         </select>
                     </div>
                     <div>
-                        <div class="mobile-label">Quantity</div>
+                        <label class="product-title" style="text-align: center; display: block;">Qty</label>
                         <input type="number" name="cerf_qty" value="0">
                     </div>
                 </div>
