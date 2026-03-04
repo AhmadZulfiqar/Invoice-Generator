@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>Simple Invoice Maker</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 768px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 16px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        header {
+            padding: 20px 24px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        header h2 {
+            margin: 0;
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        form {
+            padding: 24px;
+        }
+
+        /* Layout Grid */
+        .grid-header {
+            display: grid;
+            grid-template-columns: 8fr 3fr;
+            gap: 16px;
+            padding: 0 8px 8px 8px;
+            border-bottom: 1px solid #f8fafc;
+        }
+
+        .label-text {
+            font-size: 10px;
+            font-weight: 700;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .item-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .product-row {
+            display: grid;
+            grid-template-columns: 8fr 3fr;
+            gap: 16px;
+            align-items: center;
+            padding: 8px;
+            border-radius: 8px;
+            transition: background 0.2s;
+        }
+
+        .product-row:hover {
+            background-color: #f8fafc;
+        }
+
+        /* Inputs & Selects */
+        select, input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 14px;
+            outline: none;
+            box-sizing: border-box;
+            background-color: #fff;
+        }
+
+        select:focus, input:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
+        }
+
+        input {
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .mobile-label {
+            display: none;
+            font-size: 10px;
+            font-weight: 700;
+            color: #94a3b8;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        /* Footer Actions */
+        .actions {
+            display: flex;
+            justify-content: flex-end; /* Align save button to the right */
+            margin-top: 32px;
+        }
+
+        .btn-save {
+            background-color: #2563eb;
+            color: white;
+            border: none;
+            padding: 14px 40px;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2);
+            transition: transform 0.1s, background 0.2s;
+            font-size: 15px;
+        }
+
+        .btn-save:hover {
+            background-color: #1d4ed8;
+        }
+
+        .btn-save:active {
+            transform: scale(0.95);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            .grid-header {
+                display: none;
+            }
+
+            .product-row {
+                grid-template-columns: 1fr;
+                gap: 12px;
+                border: 1px solid #f1f5f9;
+                padding: 16px;
+            }
+
+            .mobile-label {
+                display: block;
+            }
+
+            .btn-save {
+                width: 100%; /* Full width button on mobile */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h2>Create New Invoice</h2>
+        </header>
+
+        <form id="invoiceForm" method="post" action="/add">
+            <div class="grid-header">
+                <div class="label-text">Item Description</div>
+                <div class="label-text" style="text-align: center;">Quantity</div>
+            </div>
+
+            <div class="item-list">
+                <div class="product-row">
+                    <div>
+                        <div class="mobile-label">Item Description</div>
+                        <select name="difam">
+                            <option>------------Select--------------</option>
+                            <option value="683/Difam Plus Inj 5x2ml">683/Difam Plus Inj 5x2ml</option>
+                        </select>
+                    </div>
+                    <div>
+                        <div class="mobile-label">Quantity</div>
+                        <input type="number" name="difam_qty" value="0">
+                    </div>
+                </div>
+
+                <div class="product-row">
+                    <div>
+                        <div class="mobile-label">Item Description</div>
+                        <select name="taxo250">
+                            <option>------------Select--------------</option>
+                            <option value="592/Taxomic 250mg IM/IV Inj">592/Taxomic 250mg IM/IV Inj</option>
+                        </select>
+                    </div>
+                    <div>
+                        <div class="mobile-label">Quantity</div>
+                        <input type="number" name="taxo250_qty" value="0">
+                    </div>
+                </div>
+
+                <div class="product-row">
+                    <div>
+                        <div class="mobile-label">Item Description</div>
+                        <select name="tax500">
+                            <option>------------Select--------------</option>
+                            <option value="593/Taxomic 500mg IM/IV Inj">593/Taxomic 500mg IM/IV Inj</option>
+                        </select>
+                    </div>
+                    <div>
+                        <div class="mobile-label">Quantity</div>
+                        <input type="number" name="taxo500_qty" value="0">
+                    </div>
+                </div>
+
+                <div class="product-row">
+                    <div>
+                        <div class="mobile-label">Item Description</div>
+                        <select name="cerf">
+                            <option>------------Select--------------</option>
+                            <option value="586/Cefresh 500mg inj">586/Cefresh 500mg inj</option>
+                        </select>
+                    </div>
+                    <div>
+                        <div class="mobile-label">Quantity</div>
+                        <input type="number" name="cerf_qty" value="0">
+                    </div>
+                </div>
+            </div>
+
+            <div class="actions">
+                <button type="submit" class="btn-save">Save Invoice</button>
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>

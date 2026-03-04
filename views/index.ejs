@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promo Traders Sale Invoice</title>
+    <style>
+        * { box-sizing: border-box; }
+        body { margin: 0; padding: 0; background-color: #f0f0f0; font-family: Arial, sans-serif; font-size: 11px; }
+
+        .a4-container {
+            width: 210mm;
+            height: 297mm;
+            margin: 10mm auto;
+            padding-left: 3mm;
+            padding-top: 0mm;
+            padding-right: 6mm;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Header Layout */
+        header { text-align: center; margin-bottom: 10px;  padding-bottom: 5px; }
+        .logo-section { display: flex; justify-content: center; align-items: center; gap: 20px; }
+        .company-name { font-size: 24px; font-weight: bold; margin: 0; text-transform: uppercase; }
+        
+        /* Information Grid */
+        .info-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 20px; margin-top: 10px; }
+        .field { margin-bottom: 3px; }
+        .field label { font-weight: bold; min-width: 80px; display: inline-block; }
+
+        /* Item Table - Matching image headers exactly */
+        .item-table { width: 100%; border-collapse: collapse; margin-top: -5px; }
+        .item-table th {   padding: 5px 2px; text-align: left; font-size: 10px; }
+        .item-table td { padding: 4px 6px }
+
+        /* Calculation Box */
+        .calc-wrapper {
+            border: 2px solid #000;
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            margin-top: 5px;
+        }
+        .total-left { padding: 5px; }
+        .total-right { padding: 5px; text-align: right; }
+        .row-calc { display: flex; justify-content: space-between; margin-bottom: 2px; font-size: 12px; }
+
+        /* Footer Fixed Section */
+        footer { margin-top: auto; padding-top: 10px; border-top: 1px solid #eee; }
+        .warranty-text { font-size: 9px; line-height: 1.2; }
+        .sig-block { display: flex; justify-content: flex-end; margin-top: 10px; }
+        .signature { border-top: 1px solid #000; width: 150px; text-align: center; padding-top: 5px; font-weight: bold; }
+
+        @media print {
+            @page { size: A4; margin: 0; }
+            body { background: none; }
+            .a4-container { margin: 0; box-shadow: none; width: 210mm; height: 297mm; }
+            .no-print { display: none; }
+        }
+        .D1, .D2 {
+            display: flex;
+            margin-top: 5px;
+        }
+        .D2{
+            margin-top: -17px;
+        }
+        .a1{
+            font-weight: bold;
+            margin-right: 6mm;
+        }
+        .a3{
+            font-weight: bold;
+            margin-right: 8mm;
+        }
+        .a2,.a4{
+            font-weight: bold;
+            font-size: 12px;
+            margin-top: 11px;
+        }
+        #line1{
+            display: flex;
+            justify-content: start;
+            margin-top: -17px;
+            font-weight: bold;
+        }
+        .line2{
+            display: flex;
+            
+            margin-top: -21px;
+            font-weight: bold;   
+        }
+        .in{
+            font-weight: bold;
+            margin-right: 10mm;
+        }
+        .code{
+            margin-right: 10mm;
+            font-weight: bold;
+            font-size: 11px;
+        }
+        .date{
+            margin-right: 3mm;
+            font-weight: bold;
+
+        }
+        .cdate{
+            margin-right: 5mm;
+            font-weight: bold;
+            font-size: 13px;
+            margin-top: 10px;
+        }
+        .so{
+            margin-right: 15mm;
+            font-weight: bold;
+        }
+        .ost{
+            margin-right: 10mm;
+            font-weight: bold;
+        }
+        .LL{
+            margin-right: 5mm;
+            font-weight: bold;
+        }
+        .b1{
+            margin-right: 7mm;
+        }
+        .b2,.b3{
+            margin-right: 9mm;
+        }
+        .b4{
+            margin-right: 4mm;
+        }
+        .b5{
+            margin-right: 67.5mm;
+        }
+        .line3{
+            display: flex;
+            margin-top: -18px; 
+        }
+        .line4{
+            display: flex;
+          
+            margin-left: 90mm;
+            font-weight: bold;
+        }
+        .l1{
+            margin-right: 49mm;
+        }
+        .l2{
+            margin-right: 42.6mm;
+            font-weight: bold;
+        }
+        .l3{
+            font-weight: bold;
+        }
+        .c2{
+            margin-right: 30mm;
+        }
+        .c1{
+            margin-right: 30mm;
+        }
+        .total-table{
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 5px;
+        }
+        
+        .total-section{
+            display: flex;
+            margin-top: 5px;
+                font-weight: bold;
+        }
+        .total-section1{
+            margin-top: -5mm;
+            display: flex;
+            font-weight: bold;
+        }
+        .d9{
+            margin-right: 5mm;
+            margin-left: 25mm;
+        }
+        .d12{
+            margin-right: 9.9mm;
+            margin-left: 25mm;
+        }
+        .d1{
+            margin-right: 24mm;
+        }
+        .d2{
+            margin-right: 13mm;
+        }
+        .d3{
+            margin-right: 1mm;
+        }
+        .d4{
+            margin-right: 6mm;
+        }
+        .d5{
+            margin-right: 11mm;
+        }
+        .d6{
+            margin-right: 12mm;
+        }
+        .d7{
+            
+            margin-right: 13mm;
+        }
+        .d10{
+            position: absolute;
+        }
+        .bar{
+            border-bottom: 2px solid #000;
+        }
+        .calc-wrapper{
+            display: flex;
+            justify-content: space-between;
+        }
+        .inner-calc{
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            padding: 3px;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        /* .text-Line{
+            margin-top: 5mm;
+            font-weight: bold;
+            text-align: end;
+            font-size: 15px;
+            position: absolute;
+            right: 6mm;
+            top: 134mm;
+        } */
+        .warenty{
+            left: 1mm;
+            top: 215mm;
+            position: absolute;
+            font-size: 10px;
+            padding-left: 2mm;
+            padding-right: 4mm;
+            
+        }
+        .warenty p{
+            margin-top: -6px;
+        }
+        .sig{
+            width: 220px;
+            position: absolute;
+            top: 260mm;
+            left: 145mm;
+            margin-left: auto;
+        }
+        .logo{
+            width: 120px;
+            position: absolute;
+            left: 10mm;
+            top: 2mm;
+        }
+        .nts{
+            width: 120px;
+            position: absolute;
+            right: 15mm;
+            top: 20mm;
+        }
+        .pdate{
+            width: 120px;
+            position: absolute;
+            right: 4mm;
+            bottom: 15mm;
+        }
+        .bar_bottom{
+            border-bottom: 2px solid #000;
+            position: absolute;
+            bottom: 22mm;
+            right: 0mm;
+            width: 100%;
+        }
+        /* Fixed Footer Total Alignment */
+.total-table-summary {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 5px;
+    font-weight: bold;
+}
+
+.total-row-item td {
+    padding: 2px 0;
+    font-size: 10px;
+    white-space: nowrap;
+}
+
+/* Matching the widths of your main table columns approximately */
+.total-label { width: 38%; padding-left: 25mm !important; }
+.col-qty   { width: 8%; text-align: left; }
+.col-gross { width: 8%; text-align: left; }
+.col-disc  { width: 8%; text-align: left; }
+.col-tax   { width: 7%; text-align: left; }
+.col-addtax{ width: 7%; text-align: left; }
+.col-awt   { width: 7%; text-align: left; }
+.col-aw    { width: 7%; text-align: left; }
+.col-net   { width: 10%; text-align: left; }
+.col-aw {
+            width: 7%;
+            text-align: right; /* Aligning AW column to the right */
+            padding-right: 4mm; /* Optional: adds a small gap so it's not touching the edge */
+}
+.col-net { 
+    width: 10%; 
+    text-align: right;
+    padding-right: 4mm;
+    /* Adjust this value to shift the text left */
+    position: relative;
+    right: 3mm; 
+}
+ .col-qty{
+            width: 8%;
+            text-align: right; /* Aligning Qty column to the right */
+            padding-right: 4mm; /* Optional: adds a small gap so it's not touching the edge */
+            position: relative;
+            right: 7mm; /* Adjust this value to shift the text left */
+ }
+.col-gross{
+    width: 8%;
+    text-align: right;
+    padding-right: 4mm;
+    position: relative;
+    right: -11mm;
+}
+.col-disc{
+    width: 8%;
+    text-align: right;
+    padding-right: 4mm;
+    position: relative;
+    right: -19mm;
+}
+.col-addtax{
+    width: 7%;
+    text-align: right;
+    padding-right: 4mm;
+    position: relative;
+    right: -2mm;
+}
+.col-tax{
+    width: 7%;
+    text-align: right;
+    padding-right: 4mm;
+    position: relative;
+    right: 10mm;
+}
+.col-awt{
+    width: 7%;
+    text-align: right;
+    padding-right: 4mm;
+    position: relative;
+    right: 0mm;
+}
+.col-aw{
+    width: 7%;
+    text-align: right;
+    padding-right: 4mm;
+    position: relative;
+    right: -2mm;
+}
+        
+    </style>
+</head>
+<body>
+
+    <div class="no-print" style="padding: 10px; text-align: center; background: #333; gap: 10px; display: flex; justify-content: center;">
+    <button onclick="window.print()" style="padding: 10px 20px; cursor: pointer;">Print to Paper</button>
+    <button onclick="saveInvoiceAsPDF()" style="padding: 10px 20px; cursor: pointer; background: #2563eb; color: white; border: none; border-radius: 4px;">Download PDF</button>
+</div>
+
+    <div class="a4-container">
+        <img src="./logo.png" class="logo" alt="">
+        <img src="./nts.png" class="nts" alt="">
+        <header>
+            <div class="logo-section">
+                <!-- <img src="your-logo-path.png" alt="Logo" style="width: 80px;"> -->
+                <div>
+                    <p class="company-name">PROMO TRADERS</p>
+                    <p>Sindhu House Mustafa Colony Sui Gas Road Gujranwala.</p>
+                    <p>Phone# 055-3892291, 3892293 Fax# 055-3892293</p>
+                </div>
+            </div>
+            <h2 style="margin: 5px 0; text-decoration: underline;">Sale Invoice</h2>
+        </header>
+        <div class="D1">
+            <p class="a1">Customer:</p>
+            <p class="a2">491 - Dr Asif Saleem Sahi</p>
+        </div>
+        <div class="D2">
+            <p class="a3">Address:</p>
+            <p class="a4">Mustafa Colony, Gujranwala</p>
+        </div>
+        <div id="line1">
+            <p class="in">Invoice</p>
+            <p class="code">0081801</p>
+            <p class="date">Invoice Date :</p>
+            <p class="cdate"><%= currentDate %></p>
+            <p class="so">Sale Order#</p>
+            <p class="ost">Sale Order Type: REGULAR</p>
+            <p class="LL">License # </p>
+        </div>
+        <div class="line2">
+            <p class="b1">DSS td:</p>
+            <p class="b2">0071539</p>
+            <p class="b3">Due Date :</p>
+            <p class="b4"><%= currentDate %></p>
+            <p class="b5">Cash Terms:</p>
+            <p class="b6">User :</p>
+        </div>
+        <div class="line3">
+            <p class="l1">Booking man Tahir Butt</p>
+            <p class="l2">Delivery Man: Shehzad mohsin</p>
+            <p class="l3">Gen, Date <%= currentDate %></p>
+        </div>
+        <div class="line4">
+            <p class="c1">NTN #</p>
+            <p class="c2">GST#</p>
+            <p class="c3">CNIC#</p>
+        </div>
+        
+
+        <table class="item-table">
+            <thead>
+                <tr>
+                    <th>Sr. Item Name</th>
+                    <th>Batch No.</th>
+                    <th>Expiry Date</th>
+                    <th>Qty Bonus</th>
+                    <th>Rate</th>
+                    <th>Gross</th>
+                    <th>Disc %</th>
+                    <th>Disc Amount</th>
+                    <th>Sale Tax</th>
+                    <th>Add Tax</th>
+                    <th>AW Tax</th>
+                    <th>Net Amount</th>
+                </tr>
+            </thead>
+            <tbody class="bar">
+                <% let i=1; %>
+        <% invoiceData.forEach(item => { %>
+            
+            <% if(item.qty > 0){ %> 
+        <tbody class="bar">
+            <tr>
+                <td><%= i %> &nbsp; <%= item.name %></td>
+                <td>DP230002</td>
+                <td>31/07/2026</td>
+                <td><%= item.qty %></td>
+                <td><%= item.result.rate %></td>
+                <td><%= item.result.gross %></td>
+                <td>23.50</td>
+                <td><%= item.result.disc %></td>
+                <td>0</td>
+                <td>-</td>
+                <td><%= item.result.aw %></td>
+                <td class="total-cell"><%= item.result.total %></td>
+            </tr>
+        </tbody>
+    <% } %>
+    <% i++ %>
+<% }); %>
+       <table class="total-table-summary">
+    <tr class="total-row-item">
+        <td class="total-label">Total For 070 / Bosch Pharma:</td>
+        <td class="col-qty"><%= displaySum %></td>
+        <td class="col-gross"><%= displayGross %></td>
+        <td class="col-disc"><%= displaydisc %></td>
+        <td class="col-tax">-</td>
+        <td class="col-addtax">0</td>
+        <td class="col-awt">-</td>
+        <td class="col-aw"><%= displayaw %></td>
+        <td class="col-net"><%= displayTotal %></td>
+    </tr>
+    <tr class="total-row-item">
+        <td class="total-label">
+            <span style="position: absolute; left: 3mm;">Total Item: <%= c %></span>
+            Total For Invoice 0081801:
+        </td>
+        <td class="col-qty"><%= displaySum %></td>
+        <td class="col-gross"><%= displayGross %></td>
+        <td class="col-disc"><%= displaydisc %></td>
+        <td class="col-tax">-</td>
+        <td class="col-addtax">0</td>
+        <td class="col-awt">-</td>
+        <td class="col-aw"><%= displayaw %></td>
+        <td class="col-net"><%= displayTotal %></td>
+    </tr>
+</table>
+        
+
+        <div class="calc-wrapper" style="display: block; border: 2px solid #000;"> 
+    <div class="inner-calc" style="display: flex; justify-content: space-between; ">
+        <div class="box1">
+            <p style="margin: 0px 0;">This Page Total :</p>
+            <p style="margin: 2px 0;">Previous Page Total :</p>
+        </div>
+        <div class="box1" style="text-align: right; margin-right: 20px;">
+            <p style="margin: 0px 0;"><%= displayGross %></p>
+            <p style="margin: 0px 0;">-----------</p>
+        </div>
+        <div class="box1">
+            <p style="margin: 0px 0;">Gross Amount:</p>
+            <p style="margin: 0px 0;">Discount Amount:</p>
+            <p style="margin: 0px 0;">Advance WHTax:</p>
+            <p style="margin: 0px 0;">Net Total:</p>
+        </div>
+        <div class="box1" style="text-align: right;">
+            <p style="margin: 0px 0;">= <%= displayGross %></p>
+            <p style="margin: 0px 0;">= <%= displaydisc %></p>
+            <p style="margin: 0px 0;">= <%= displayaw %></p>
+            <p style="margin: 0px 0;">= <%= roundTotal %></p>
+        </div>
+    </div>
+
+    <div style="padding-right: 3px; font-weight: bold; font-size: 15px; text-transform: capitalize; text-align: right;">
+        <%= totalInWords %>.
+    </div>
+</div>
+        <!-- <div class="text-Line">
+                <p><%= totalInWords %></p>
+        </div> -->
+        <div class="warenty">
+            <h4>Warranty U/S 23:</h4>
+            <p>I M. Qaiser Sindhu being a person resident in Pakistan carrying on business at Sindhu House Mustafa Colony Sui Gas Road Gujranwala. under the name of PROMO</p>
+            <p>TRADERS a distributor / wholesaler / authorized agent of the drugs on this invoice, do hereby give this warranty that the drugs invoice as sold by us, do not contravene in any way the provision of Section 23 of the Drug Act 1976.</p>
+            <p>Form 11 [See Rule 10(3)]: Warranty Under Alternative Medicines & Health Products (Enlistment) Rules, 2014.</p>
+            <p>It is hereby certified and I M. Qaiser Sindhu undertake that above mentioned finished products of specified batch number (or lot number) supplied by me do not contravene any provision of the DRAP Act, 2012 and rules framed there under.</p>
+            <p>Note:</p>
+            <p>1 - For Near Expiry Items we must be informed 8 months prior to expiry.</p>
+            <p>2 - Ensure that you have received the stock according to printed quantities and values.</p>
+            <p>3 - In case of any discrepancy, please inform us immediately otherwise we don't accept any responsibility afterward.</p>
+        </div>        
+        <img src="./Screenshot 2026-03-02 154543.png" class="sig" alt="">
+        <div class="bar_bottom"></div>
+        <img src="./printdate.png" class="pdate" alt="">
+    </div>
+
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script>
+    function saveInvoiceAsPDF() {
+        const element = document.querySelector('.a4-container');
+        
+        const options = {
+            margin: 0,
+            filename: 'Promo_Traders_Invoice.pdf',
+            image: { type: 'jpeg', quality: 1.0 },
+            html2canvas: { 
+                scale: 2, 
+                useCORS: true,
+                logging: false,
+                letterRendering: true,
+                // Ensures the canvas is clipped to the exact A4 height
+                height: 1122, // Approximate pixel height for A4 at 96 DPI
+                windowHeight: 1122
+            },
+            jsPDF: { 
+                unit: 'mm', 
+                format: 'a4', 
+                orientation: 'portrait',
+                compress: true
+            },
+            // Force the library to treat the content as a single page
+            pagebreak: { mode: 'avoid-all' }
+        };
+
+        // Generate the PDF
+        html2pdf().set(options).from(element).toPdf().get('pdf').then(function (pdf) {
+            // This extra step ensures that if a 2nd page was created, it's deleted
+            const totalPages = pdf.internal.getNumberOfPages();
+            for (let i = totalPages; i > 1; i--) {
+                pdf.deletePage(i);
+            }
+        }).save();
+    }
+</script>
+</html>
