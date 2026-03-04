@@ -48,7 +48,7 @@ app.get("/new", (req, res) => {
   res.render("index.ejs");
 });
 
-app.get("/add", (req, res) => {
+app.get("/", (req, res) => {
   res.render("form.ejs");
 });
 app.post("/add", async (req, res) => {
@@ -273,3 +273,4 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 module.exports = app;
+
