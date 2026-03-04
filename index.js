@@ -88,9 +88,9 @@ app.post("/add", async (req, res) => {
       };
     }
         function cal_cerf(product, qty) {
-        let rate = 136.00;
+        let rate = 157.25;
       let gross = qty * rate;
-      let disc = gross * 0.15;
+      let disc = gross * 0.18;
       let net = gross - disc;
       let aw = (net * 0.5) / 100;
       let total = net + aw;
@@ -113,7 +113,7 @@ app.post("/add", async (req, res) => {
     function cal_taxo250(product, qty) {
       let rate = 86.7;
       let gross = qty * rate;
-      let disc = gross * 0.15;
+      let disc = gross * 0.10;
       let net = gross - disc;
       let aw = (net * 0.5) / 100;
       let total = net + aw;
@@ -273,4 +273,5 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 module.exports = app;
+
 
