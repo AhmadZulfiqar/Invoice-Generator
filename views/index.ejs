@@ -445,10 +445,9 @@
                 </tr>
             </thead>
             <tbody class="bar">
-                <% let i=1; %>
-        <% invoiceData.forEach(item => { %>
-            
-            <% if(item.qty > 0){ %> 
+               <% let i = 1; %> 
+<% invoiceData.forEach(item => { %>
+    <% if(item.qty > 0) { %> 
         <tbody class="bar">
             <tr>
                 <td><%= i %> &nbsp; <%= item.name %></td>
@@ -465,8 +464,7 @@
                 <td class="total-cell"><%= item.result.total %></td>
             </tr>
         </tbody>
-    <% } %>
-    <% i++ %>
+        <% i++ %> <% } %>
 <% }); %>
        <table class="total-table-summary">
     <tr class="total-row-item">
@@ -586,4 +584,5 @@
         }).save();
     }
 </script>
+
 </html>
